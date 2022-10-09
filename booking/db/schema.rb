@@ -10,9 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_22_133656) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_08_172301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "availability_slots", force: :cascade do |t|
+    t.datetime "start_at"
+    t.integer "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "events_id", null: false
+    t.index ["events_id"], name: "index_availability_slots_on_events_id"
+  end
+
+  create_table "event_types", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.integer "duration"
+    t.integer "price"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_event_types_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "event_type_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.boolean "customer_paid", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,8 +61,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_22_133656) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "event_link"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["event_link"], name: "index_users_on_event_link", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "availability_slots", "events", column: "events_id"
+  add_foreign_key "event_types", "users"
 end

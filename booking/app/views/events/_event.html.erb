@@ -1,0 +1,26 @@
+<div id="<%= dom_id event %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= event.name %>
+  </p>
+<%
+=begin%>
+ 
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Start at:</strong>
+    <%= event.start_at %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Duration minutes:</strong>
+    <%= event.duration_minutes %>
+  </p> 
+<%
+=end%>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this event", event, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this event', edit_event_path(event), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

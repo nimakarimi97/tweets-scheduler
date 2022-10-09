@@ -1,0 +1,2 @@
+class AvailabilitySlot < ApplicationRecord
+end
