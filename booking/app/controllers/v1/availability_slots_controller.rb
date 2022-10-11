@@ -1,4 +1,4 @@
-class AvailabilitySlotsController < ApplicationController
+class V1::AvailabilitySlotsController < ApplicationController
   before_action :set_availability_slot, only: %i[ show edit update destroy ]
 
   # GET /availability_slots or /availability_slots.json

@@ -1,4 +1,4 @@
-<div id="<%= dom_id availability_slot %>">
+<div id="<%= dom_id availability_slot %>" class = 'my-5 p-6 rounded-lg border border-gray-200 shadow-md'>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Event ID:</strong>
@@ -19,6 +19,5 @@
   <% if action_name != "show" %>
     <%= link_to "Show this availability slot", availability_slot, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to 'Edit this availability slot', edit_availability_slot_path(availability_slot), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
   <% end %>
 </div>
