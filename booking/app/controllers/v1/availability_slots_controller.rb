@@ -4,6 +4,10 @@ class V1::AvailabilitySlotsController < ApplicationController
   # GET /availability_slots or /availability_slots.json
   def index
     @availability_slots = AvailabilitySlot.all
+    respond_to do |format|
+      format.json { render :json => @availability_slots }
+      format.html { render :index}
+    end
   end
 
   # GET /availability_slots/1 or /availability_slots/1.json

@@ -263,7 +263,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  # config.navigational_formats = ['*/*', :html]
+  config.navigational_formats = []
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
@@ -308,4 +308,19 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+
+  config.jwt do |jwt|
+    # jwt.secret =  'd343aa78ce9868867800561ddf622a1a0c2f31306ac918280606182e6776662e13ce11219ed10f8981cd63e114ec6e777c748c51de7a104ff81d164607e6b3ab'
+
+    # jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
+    jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
+    jwt.dispatch_requests = [
+      ['POST', %r{^/users/sign_in$}]
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/users/sign_out$}]
+    ]
+    jwt.expiration_time = 120.minutes.to_i
+    jwt.aud_header = 'JWT_AUD'
+  end
 end
